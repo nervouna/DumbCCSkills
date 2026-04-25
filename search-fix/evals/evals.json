@@ -1,0 +1,23 @@
+{
+  "skill_name": "search-fix",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've been trying to fix this React useEffect infinite loop for over an hour. The component keeps re-rendering. I've already tried: 1) adding empty dependency array [] 2) using useRef to track if it's the first render 3) moving the state update outside useEffect. Nothing works. The error in console says 'Maximum update depth exceeded'. This is React 18 with strict mode on. Can you help?",
+      "expected_output": "Skill dispatches research sub-agent to search Tavily + Context7 for React useEffect infinite loop solutions, then dispatches synthesis sub-agent to produce ranked solutions. Should identify common causes like object/array dependencies, missing useCallback, or setState inside useEffect.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Python import error that I cannot fix. I'm getting 'ImportError: cannot import name X from Y' but this worked yesterday. I've tried: 1) pip install --upgrade the package 2) deleting __pycache__ and .pyc files 3) checking for circular imports (none found). The package is sqlalchemy 2.0 and I'm on Python 3.12. Every fix I try either gives the same error or a new one about 'partially initialized module'.",
+      "expected_output": "Skill dispatches research sub-agent to search multiple sources for Python circular import / partially initialized module errors, then synthesis sub-agent produces ranked solutions addressing import order, lazy imports, TYPE_CHECKING pattern.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My docker-compose build keeps failing with 'exec ./entrypoint.sh: no such file or directory'. I've been at this for 2 hours. What I've tried: 1) confirmed the file exists in the right directory 2) chmod +x on the file 3) checked line endings (converted to LF) 4) rebuilt with --no-cache. The file is definitely there, permissions are 755, line endings are LF. Still getting the same error. Ubuntu 22.04 base image.",
+      "expected_output": "Skill dispatches research sub-agent to search for docker entrypoint file not found despite existing, then synthesis sub-agent produces ranked solutions (likely shebang issue, architecture mismatch, or COPY vs volume mount).",
+      "files": []
+    }
+  ]
+}
