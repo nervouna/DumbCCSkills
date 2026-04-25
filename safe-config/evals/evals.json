@@ -1,0 +1,57 @@
+{
+  "skill_name": "safe-config",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想给 Claude Code 加一个 hook，在每次使用 Bash 工具之前自动检查命令是否包含 rm -rf，如果有就阻止执行。",
+      "expected_output": "Research phase dispatches subagent to search Tavily for hooks documentation. Plan phase creates a modification plan showing the PreToolUse hook config with sources. After approval, implements the hook in settings.json.",
+      "files": [],
+      "assertions": [
+        "Research was conducted via Tavily search for Claude Code hooks documentation",
+        "Official documentation URL (docs.anthropic.com or code.claude.com) is cited in the plan",
+        "Plan format matches the required template (Summary, Files to modify, Detailed changes, Sources)",
+        "Plan mentions PreToolUse hook event and correct settings.json structure",
+        "Implementation does NOT modify files without presenting a plan first"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我把 Claude Code 的默认模型从 Sonnet 改成 Opus",
+      "expected_output": "Research phase confirms the model setting key exists in official docs. Plan phase creates modification plan. Implementation delegates to update-config skill for settings.json change.",
+      "files": [],
+      "assertions": [
+        "Research was conducted via Tavily search for model configuration documentation",
+        "Plan delegates to update-config skill for settings.json modification",
+        "Plan identifies the correct settings key for model selection",
+        "Official documentation URL is cited as source",
+        "Implementation description shows delegation to update-config, not direct file editing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我要在 ~/.claude/CLAUDE.md 里加一条规则：所有 Git 提交消息必须用中文写。",
+      "expected_output": "Research phase confirms CLAUDE.md syntax and precedence rules. Plan phase creates modification plan showing the exact text to add. After approval, edits the file directly.",
+      "files": [],
+      "assertions": [
+        "Research confirms CLAUDE.md syntax and location (~/.claude/CLAUDE.md)",
+        "Plan reads current CLAUDE.md before proposing changes",
+        "Plan shows exact text to add with context about where to insert it",
+        "Sources cite official docs about CLAUDE.md purpose and format",
+        "Implementation is a direct file edit (not delegating to update-config)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "给我配置一下 Ctrl+S 的快捷键，让它执行 /simplify 命令",
+      "expected_output": "Research phase searches Tavily for keybindings documentation. Plan phase creates plan with the keybinding JSON structure. After approval, modifies keybindings.json.",
+      "files": [],
+      "assertions": [
+        "Research was conducted via Tavily search for keybindings documentation",
+        "Plan identifies the correct keybindings.json file location",
+        "Plan shows the correct JSON structure for chord/shortcut binding",
+        "Official documentation URL about keybindings is cited",
+        "Implementation correctly modifies keybindings.json (not settings.json)"
+      ]
+    }
+  ]
+}
