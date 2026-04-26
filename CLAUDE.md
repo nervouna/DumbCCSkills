@@ -26,3 +26,10 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - Grading JSON uses fields `text`, `passed`, `evidence` (not `name`/`met`/`details`)
 - Aggregate with `python -m scripts.aggregate_benchmark <workspace>/iteration-N --skill-name <name>`
 - Launch reviewer: `python eval-viewer/generate_review.py <workspace>/iteration-N --benchmark <workspace>/iteration-N/benchmark.json`
+
+## Gotchas
+
+- Git may fail with "not a git repository" — use `git -C /absolute/path/to/ClaudeCodeSkills` instead
+- Aggregation script expects `run-1/` subdirectories inside each config; grading.json needs a `summary` field
+- Skill-creator scripts live in `~/.claude/plugins/cache/claude-plugins-official/skill-creator/<hash>/skills/skill-creator/`
+- Eval sub-agent prompts must NOT have "IMPORTANT: conceptual only" hints — agents will describe instead of execute
