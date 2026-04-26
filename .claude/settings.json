@@ -1,0 +1,24 @@
+{
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "context7@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "mcp__tavily__tavily_search",
+      "mcp__tavily__tavily_extract",
+      "mcp__MiniMax__understand_image",
+      "WebFetch(domain:localhost)",
+      "Bash(lsof *)",
+      "Bash(screencapture *)",
+      "Bash(sips *)",
+      "Bash(open -a \"Google Chrome\" *)",
+      "Bash(osascript *)",
+      "Bash(npx vite *)",
+      "Bash(npx playwright *)",
+      "Bash(npx puppeteer *)",
+      "Bash(npm init *)",
+      "Bash(npm install *)"
+    ]
+  }
+}

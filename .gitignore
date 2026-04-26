@@ -30,6 +30,7 @@ node_modules/
 
 # Claude Code local overrides
 .claude.local.md
+.claude/settings.local.json
 .claude/sessions/
 
 # Workspace scratch directories
