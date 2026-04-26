@@ -1,0 +1,49 @@
+{
+  "skill_name": "python-scaffold",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我创建一个 Python CLI 项目，叫 todo-tracker，用来管理我的待办事项。",
+      "expected_output": "Creates a todo-tracker project with CLI type template: pyproject.toml with click dependency and scripts entry point, src/todo_tracker/cli.py with click commands, tests/test_cli.py with CliRunner tests, .gitignore, README.md, .env.example. Runs uv sync and git init with initial commit.",
+      "files": [],
+      "assertions": [
+        {"assertion": "Project directory todo-tracker exists", "type": "file_exists", "path": "todo-tracker"},
+        {"assertion": "pyproject.toml includes click as a dependency", "type": "file_contains", "path": "todo-tracker/pyproject.toml", "pattern": "click"},
+        {"assertion": "pyproject.toml has [project.scripts] entry point", "type": "file_contains", "path": "todo-tracker/pyproject.toml", "pattern": "[project.scripts]"},
+        {"assertion": "src/todo_tracker/cli.py defines a click CLI with commands", "type": "file_contains", "path": "todo-tracker/src/todo_tracker/cli.py", "pattern": "@click"},
+        {"assertion": "tests/test_cli.py uses CliRunner for testing", "type": "file_contains", "path": "todo-tracker/tests/test_cli.py", "pattern": "CliRunner"},
+        {"assertion": ".gitignore excludes .env", "type": "file_contains", "path": "todo-tracker/.gitignore", "pattern": ".env"},
+        {"assertion": "Git repository initialized with at least one commit", "type": "git_has_commits", "path": "todo-tracker"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to build a FastAPI backend for a note-taking app called note-api. Can you scaffold the project?",
+      "expected_output": "Creates a note-api project with Web type template: pyproject.toml with fastapi/uvicorn/pydantic-settings dependencies, src/note_api/app.py with FastAPI app factory and lifespan, src/note_api/config.py with pydantic-settings, src/note_api/routes/health.py with health endpoint, tests/conftest.py with TestClient fixture, tests/test_health.py. Runs uv sync and git init.",
+      "files": [],
+      "assertions": [
+        {"assertion": "Project directory note-api exists", "type": "file_exists", "path": "note-api"},
+        {"assertion": "pyproject.toml includes fastapi as a dependency", "type": "file_contains", "path": "note-api/pyproject.toml", "pattern": "fastapi"},
+        {"assertion": "pyproject.toml includes pydantic-settings as a dependency", "type": "file_contains", "path": "note-api/pyproject.toml", "pattern": "pydantic-settings"},
+        {"assertion": "src/note_api/app.py defines a FastAPI app factory", "type": "file_contains", "path": "note-api/src/note_api/app.py", "pattern": "def create_app"},
+        {"assertion": "src/note_api/config.py uses pydantic-settings BaseSettings", "type": "file_contains", "path": "note-api/src/note_api/config.py", "pattern": "BaseSettings"},
+        {"assertion": "tests/conftest.py defines a TestClient fixture", "type": "file_contains", "path": "note-api/tests/conftest.py", "pattern": "TestClient"},
+        {"assertion": "tests/test_health.py tests the /health endpoint", "type": "file_contains", "path": "note-api/tests/test_health.py", "pattern": "/health"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "搭建一个 Python 库项目叫 text-utils，提供文本处理的工具函数。",
+      "expected_output": "Creates a text-utils project with Lib type template: pyproject.toml with no runtime dependencies, src/text_utils/__init__.py with __all__ exports, src/text_utils/core.py with greet function, tests/test_core.py with basic unit tests. Runs uv sync and git init.",
+      "files": [],
+      "assertions": [
+        {"assertion": "Project directory text-utils exists", "type": "file_exists", "path": "text-utils"},
+        {"assertion": "pyproject.toml has no runtime dependencies beyond dev-only tools", "type": "file_not_contains", "path": "text-utils/pyproject.toml", "pattern": "[dependencies]"},
+        {"assertion": "src/text_utils/__init__.py exports greet via __all__", "type": "file_contains", "path": "text-utils/src/text_utils/__init__.py", "pattern": "__all__"},
+        {"assertion": "src/text_utils/core.py defines a greet function", "type": "file_contains", "path": "text-utils/src/text_utils/core.py", "pattern": "def greet"},
+        {"assertion": "tests/test_core.py tests the greet function", "type": "file_contains", "path": "text-utils/tests/test_core.py", "pattern": "greet"},
+        {"assertion": "Package uses src layout", "type": "file_exists", "path": "text-utils/src/text_utils/__init__.py"}
+      ]
+    }
+  ]
+}

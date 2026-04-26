@@ -19,6 +19,7 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - **safe-config**: Safely modify Claude Code configuration files (settings.json, CLAUDE.md, hooks, MCP).
 - **frontend-preview**: Browser preview + AI screenshot analysis + auto-fix feedback loop for frontend development.
 - **deep-research**: Multi-dimensional web research on any topic. Decomposes questions into dimensions, dispatches parallel Tavily research sub-agents, and synthesizes findings into structured reports.
+- **python-scaffold**: Scaffold Python projects with uv + ruff + mypy + pytest. Supports CLI/Web (FastAPI)/Lib types via templates. Auto-configures `.claude/settings.json` permissions.
 
 ## Eval workflow
 
@@ -38,3 +39,6 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - Eval sub-agent prompts must NOT have "IMPORTANT: conceptual only" hints — agents will describe instead of execute
 - `generate_review.py` defaults to port 8080; use `--port N` to run multiple iterations simultaneously
 - Viewer `feedback.json` downloads to `~/Downloads/` — may be stale from prior sessions; check timestamps
+- Background sub-agents cannot prompt for Bash/Write permissions and will silently fail with no output.
+  If eval agents produce nothing or report permission errors, fall back to running evals directly in the main session.
+- python-scaffold auto-runs `git init` in its scaffold workflow. If global CLAUDE.md adds a "no auto git init" rule, the skill's SKILL.md must be updated.
