@@ -13,6 +13,12 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - Skills designed for main-agent orchestration use the `Agent` tool to dispatch sub-agents
 - Web search in skills must use Tavily MCP tools, never built-in `WebSearch`/`WebFetch`
 
+## Skills
+
+- **search-fix**: Web-sourced solutions when local debugging fails 3+ times. Dispatches research + synthesis sub-agents.
+- **safe-config**: Safely modify Claude Code configuration files (settings.json, CLAUDE.md, hooks, MCP).
+- **frontend-preview**: Browser preview + AI screenshot analysis + auto-fix feedback loop for frontend development.
+
 ## Eval workflow
 
 - Evals defined in `evals/evals.json` per skill

@@ -1,0 +1,23 @@
+{
+  "skill_name": "frontend-preview",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished building a React signup form component with name, email, password fields and a submit button. The CSS is in a separate SignupForm.module.css. Can you check how it looks in the browser? The dev server should be running on port 5173.",
+      "expected_output": "Uses the frontend-preview skill to: 1) confirm the dev server URL (localhost:5173), 2) open the browser to the page showing the signup form, 3) capture a screenshot, 4) analyze it for visual issues. If issues found, suggests CSS fixes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "帮我预览一下页面，我刚改了导航栏的样式。项目用的是 Vite，应该已经在跑了。",
+      "expected_output": "Uses the frontend-preview skill to: 1) scan for the running Vite dev server (port 5173 or similar), 2) open the browser to the page, 3) capture a screenshot, 4) analyze it with focus on the navbar/navigation styling.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I keep getting this weird layout issue where the card grid breaks on mobile viewport. I've tried flex-wrap and different widths but it still looks wrong. Let me see the actual page so I can debug this.",
+      "expected_output": "Uses the frontend-preview skill to: 1) determine the dev server URL, 2) open the browser, 3) capture a screenshot, 4) use AI vision to analyze the card grid layout specifically, 5) identify issues and propose fixes, 6) iterate if needed.",
+      "files": []
+    }
+  ]
+}
