@@ -32,5 +32,9 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 
 - Git may fail with "not a git repository" — use `git -C /absolute/path/to/ClaudeCodeSkills` instead
 - Aggregation script expects `run-1/` subdirectories inside each config; grading.json needs a `summary` field
+  Full structure: `eval-N/{config}/run-1/{outputs/report.md, timing.json, grading.json}`
+- Custom grading scripts must support `run-1/` path nesting (not flat `eval-N/{config}/outputs/`)
 - Skill-creator scripts live in `~/.claude/plugins/cache/claude-plugins-official/skill-creator/<hash>/skills/skill-creator/`
 - Eval sub-agent prompts must NOT have "IMPORTANT: conceptual only" hints — agents will describe instead of execute
+- `generate_review.py` defaults to port 8080; use `--port N` to run multiple iterations simultaneously
+- Viewer `feedback.json` downloads to `~/Downloads/` — may be stale from prior sessions; check timestamps
