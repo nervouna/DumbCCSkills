@@ -1,0 +1,47 @@
+{
+  "skill_name": "deep-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "核能是实现碳中和最经济有效的途径吗？请帮我全面分析这个问题。",
+      "expected_output": "一份多维度结构化分析报告，包含执行摘要、各维度发现、交叉分析、证据评估和来源列表",
+      "files": [],
+      "assertions": [
+        {"name": "has_executive_summary", "description": "Report contains an executive summary section", "type": "contains_section", "value": "Executive Summary"},
+        {"name": "multi_dimension", "description": "Report covers at least 4 distinct research dimensions", "type": "min_sections", "value": 4},
+        {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
+        {"name": "evidence_assessment", "description": "Report distinguishes strong from weak evidence", "type": "contains_section", "value": "Evidence Assessment"},
+        {"name": "cross_analysis", "description": "Report includes cross-dimension analysis", "type": "contains_section", "value": "Cross"},
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "远程工作和办公室工作，哪种方式对员工生产力影响更好？帮我做一个全面的调研对比。",
+      "expected_output": "一份对比分析报告，从多个维度比较远程和办公室工作对生产力的影响",
+      "files": [],
+      "assertions": [
+        {"name": "has_executive_summary", "description": "Report contains an executive summary section", "type": "contains_section", "value": "Executive Summary"},
+        {"name": "multi_dimension", "description": "Report covers at least 4 distinct research dimensions", "type": "min_sections", "value": 4},
+        {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
+        {"name": "evidence_assessment", "description": "Report assesses evidence quality", "type": "contains_section", "value": "Evidence Assessment"},
+        {"name": "cross_analysis", "description": "Report includes cross-dimension analysis", "type": "contains_section", "value": "Cross"},
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "最近很多人说加密货币已经成为主流支付手段了，这个说法到底对不对？帮我调研一下。",
+      "expected_output": "一份观点验证报告，分析加密货币作为支付手段的采纳程度、障碍和前景",
+      "files": [],
+      "assertions": [
+        {"name": "has_executive_summary", "description": "Report contains an executive summary section", "type": "contains_section", "value": "Executive Summary"},
+        {"name": "multi_dimension", "description": "Report covers at least 4 distinct research dimensions", "type": "min_sections", "value": 4},
+        {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
+        {"name": "evidence_assessment", "description": "Report assesses evidence quality", "type": "contains_section", "value": "Evidence Assessment"},
+        {"name": "competing_perspectives", "description": "Report presents competing viewpoints", "type": "contains_section", "value": "competing"},
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+      ]
+    }
+  ]
+}

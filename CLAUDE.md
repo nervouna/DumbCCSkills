@@ -18,14 +18,15 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - **search-fix**: Web-sourced solutions when local debugging fails 3+ times. Dispatches research + synthesis sub-agents.
 - **safe-config**: Safely modify Claude Code configuration files (settings.json, CLAUDE.md, hooks, MCP).
 - **frontend-preview**: Browser preview + AI screenshot analysis + auto-fix feedback loop for frontend development.
+- **deep-research**: Multi-dimensional web research on any topic. Decomposes questions into dimensions, dispatches parallel Tavily research sub-agents, and synthesizes findings into structured reports.
 
 ## Eval workflow
 
 - Evals defined in `evals/evals.json` per skill
 - For each eval, run `with_skill` and `without_skill` (baseline) in parallel as background sub-agents
 - Grading JSON uses fields `text`, `passed`, `evidence` (not `name`/`met`/`details`)
-- Aggregate with `python -m scripts.aggregate_benchmark <workspace>/iteration-N --skill-name <name>`
-- Launch reviewer: `python eval-viewer/generate_review.py <workspace>/iteration-N --benchmark <workspace>/iteration-N/benchmark.json`
+- Aggregate: `python <skill-creator>/scripts/aggregate_benchmark.py <workspace>/iteration-N --skill-name <name>`
+- Review: `python <skill-creator>/eval-viewer/generate_review.py <workspace>/iteration-N --benchmark <workspace>/iteration-N/benchmark.json`
 
 ## Gotchas
 
