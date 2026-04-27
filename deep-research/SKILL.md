@@ -159,6 +159,247 @@ Present the synthesis report to the user in full. After the report, add a brief 
 - If the user might want to dig deeper into a specific dimension, suggest it
 - Keep this post-report commentary to 2-3 sentences
 
+### Step 5b: Generate HTML report
+
+After presenting the markdown report, convert it into a self-contained HTML file and open it in the browser.
+
+**You (the orchestrator) generate the HTML directly** — do NOT delegate this to a sub-agent. The synthesis sub-agent only returns markdown; the HTML conversion is your responsibility.
+
+#### HTML template spec
+
+The HTML document must be fully self-contained (inline `<style>`, no external JS/CSS except Google Fonts via `@import`). Follow this structure:
+
+```html
+<!DOCTYPE html>
+<html lang="[LANGUAGE CODE: zh-CN or en]">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[RESEARCH QUESTION]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- For Chinese (zh-CN): include Noto Sans SC. For English (en): use Inter only. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --primary: #2563eb;
+    --primary-light: #eff6ff;
+    --bg: #ffffff;
+    --bg-alt: #f8fafc;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --warning: #d97706;
+    --warning-bg: #fffbeb;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --radius: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    /* For en: use 'Inter', system-ui, sans-serif. For zh-CN: add 'Noto Sans SC' before system-ui. */
+    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    background: var(--bg-alt);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 800px; margin: 0 auto; }
+
+  /* Header */
+  .report-header {
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    color: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+  }
+  .report-header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .report-meta { font-size: 0.875rem; opacity: 0.85; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .confidence-badge {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-light);
+  }
+  .card h3 { font-size: 1.05rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+
+  /* Summary highlight */
+  .summary-card {
+    background: var(--primary-light);
+    border-left: 4px solid var(--primary);
+  }
+
+  /* Dimension details */
+  details { margin-bottom: 0.75rem; }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  details summary::before { content: "▶"; font-size: 0.7rem; transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary::-webkit-details-marker { display: none; }
+  details .detail-content { padding: 1rem; border: 1px solid var(--border); border-top: 0; border-radius: 0 0 var(--radius) var(--radius); }
+
+  /* Evidence tags */
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .tag-strong { background: var(--success-bg); color: var(--success); }
+  .tag-weak { background: var(--warning-bg); color: var(--warning); }
+  .tag-gap { background: var(--danger-bg); color: var(--danger); }
+
+  /* Cross-analysis */
+  .cross-analysis {
+    border-left: 4px solid #7c3aed;
+    background: #faf5ff;
+    padding: 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* Sources */
+  .sources ol { padding-left: 1.5rem; }
+  .sources li { margin-bottom: 0.4rem; font-size: 0.9rem; }
+  .sources a { color: var(--primary); text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  /* Lists */
+  ul, ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+  li { margin-bottom: 0.35rem; }
+  p { margin-bottom: 0.75rem; }
+  a { color: var(--primary); }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .report-header { background: var(--text) !important; -webkit-print-color-adjust: exact; }
+    /* When generating HTML for print, set open attribute on all <details> elements */
+    details[open] summary { border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Header: research question, date, confidence badge -->
+  <div class="report-header">
+    <h1>[RESEARCH QUESTION]</h1>
+    <div class="report-meta">
+      <span>[DATE]</span>
+      <span class="confidence-badge">[CONFIDENCE LEVEL]</span>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="card summary-card">
+    <h2>[Section header in question's language]</h2>
+    <p>[Summary text]</p>
+  </div>
+
+  <!-- Key Findings by Dimension — each as a collapsible <details> -->
+  <div class="card">
+    <h2>[Section header in question's language]</h2>
+    <details open>
+      <summary>[Dimension 1 Name]</summary>
+      <div class="detail-content">
+        [Findings as bullet list]
+      </div>
+    </details>
+    <details>
+      <summary>[Dimension 2 Name]</summary>
+      <div class="detail-content">
+        [Findings as bullet list]
+      </div>
+    </details>
+    <!-- ... one per dimension -->
+  </div>
+
+  <!-- Cross-Cutting Analysis -->
+  <div class="card">
+    <h2>[Section header in question's language]</h2>
+    <div class="cross-analysis">
+      [Cross-analysis paragraphs]
+    </div>
+  </div>
+
+  <!-- Evidence Assessment with colored tags -->
+  <div class="card">
+    <h2>[Section header in question's language]</h2>
+    <h3><span class="tag tag-strong">[Strong evidence label]</span></h3>
+    <p>[Strong evidence content]</p>
+    <h3><span class="tag tag-weak">[Weak evidence label]</span></h3>
+    <p>[Weak evidence content]</p>
+    <h3><span class="tag tag-gap">[Gaps label]</span></h3>
+    <p>[Gaps content]</p>
+  </div>
+
+  <!-- Overall Assessment -->
+  <div class="card">
+    <h2>[Section header in question's language]</h2>
+    <p>[Assessment text]</p>
+  </div>
+
+  <!-- Sources -->
+  <div class="card sources">
+    <h2>[Section header in question's language]</h2>
+    <ol>
+      <li><a href="[URL]">[Title]</a></li>
+      <!-- ... -->
+    </ol>
+  </div>
+</div>
+</body>
+</html>
+```
+
+#### Generation steps
+
+1. Take the markdown synthesis report from Step 4
+2. Convert it into the HTML template above — map each markdown section to the corresponding HTML block
+3. All section headers must be in the same language as the research question
+4. Use the `Write` tool to save the file to `/tmp/deep-research-report.html`
+5. Use the `Bash` tool to run: `open /tmp/deep-research-report.html`
+6. Tell the user: "HTML report saved to `/tmp/deep-research-report.html`"
+
+> **Note on concurrent runs**: If multiple deep-research sessions run simultaneously, use a timestamped filename like `/tmp/deep-research-report-20260427-1530.html` to avoid clobbering.
+
 ## Edge cases
 
 ### Too many dimensions

@@ -12,7 +12,8 @@
         {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
         {"name": "evidence_assessment", "description": "Report distinguishes strong from weak evidence", "type": "contains_section", "value": "Evidence Assessment"},
         {"name": "cross_analysis", "description": "Report includes cross-dimension analysis", "type": "contains_section", "value": "Cross"},
-        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500},
+        {"name": "generates_html", "description": "Workflow includes generating an HTML report file", "type": "contains_instruction", "value": "HTML"}
       ]
     },
     {
@@ -26,7 +27,8 @@
         {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
         {"name": "evidence_assessment", "description": "Report assesses evidence quality", "type": "contains_section", "value": "Evidence Assessment"},
         {"name": "cross_analysis", "description": "Report includes cross-dimension analysis", "type": "contains_section", "value": "Cross"},
-        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500},
+        {"name": "generates_html", "description": "Workflow includes generating an HTML report file", "type": "contains_instruction", "value": "HTML"}
       ]
     },
     {
@@ -40,7 +42,8 @@
         {"name": "has_source_urls", "description": "Report includes at least 5 source URLs", "type": "min_urls", "value": 5},
         {"name": "evidence_assessment", "description": "Report assesses evidence quality", "type": "contains_section", "value": "Evidence Assessment"},
         {"name": "competing_perspectives", "description": "Report presents competing viewpoints", "type": "contains_section", "value": "competing"},
-        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500}
+        {"name": "substantial_length", "description": "Report is at least 500 words", "type": "min_words", "value": 500},
+        {"name": "generates_html", "description": "Workflow includes generating an HTML report file", "type": "contains_instruction", "value": "HTML"}
       ]
     }
   ]
