@@ -188,8 +188,8 @@ mkdir -p docs/brainstorming
 | `{{PROBLEM_STATEMENT}}` | state.problem_statement |
 | `{{VALUE_PROPOSITION}}` | state.value_proposition |
 | `{{PERSONA_CARDS}}` | 从 dimensions 的"用户视角"发现中提取，每张卡 `<div class="persona-card"><div class="persona-name">角色名</div><div class="persona-desc">简短描述</div></div>` |
-| `{{SCENARIO_ROWS}}` | state.scenarios，每行 `<div class="scenario-row"><span>名</span><span>用户行为</span><span>系统行为</span><span class="tag tag-p0">P0</span></div>` |
-| `{{FEATURE_GROUPS}}` | state.feature_ideas 按 source_dimension 分组，每组 `<div class="feature-group"><div class="group-name">维度名</div>` + feature items |
+| `{{SCENARIO_ROWS}}` | state.scenarios，每行 `<div class="scenario-row"><span>名</span><span>用户行为</span><span>系统行为</span><span class="tag tag-p0">核心</span></div>`（P0→核心/tag-p0, P1→重要/tag-p1, P2→可选/tag-p2） |
+| `{{FEATURE_GROUPS}}` | state.feature_ideas 按 source_dimension 分组。每组一个 `<div class="feature-group">`，内含 `<div class="group-name">维度名</div>`。每个 feature 一行 `<div class="feature-item">`，包含名称、描述、以及可读标签：优先级用中文标签 `高优先`/`中优先`/`低优先`（对应 tag-high/tag-medium/tag-low），新颖度同理 `新颖`/`常规`（对应 tag-high/tag-low） |
 | `{{CROSS_PATTERNS}}` | cross_connections 中 type=pattern 的条目 |
 | `{{CONTRADICTIONS}}` | cross_connections 中 type=contradiction 的条目 |
 | `{{SYNERGIES}}` | cross_connections 中 type=synergy 的条目 |
