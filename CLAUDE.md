@@ -20,6 +20,7 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - **frontend-preview**: Browser preview + AI screenshot analysis + auto-fix feedback loop for frontend development.
 - **deep-research**: Multi-dimensional web research on any topic. Decomposes questions into dimensions, dispatches parallel Tavily research sub-agents, and synthesizes findings into structured reports.
 - **python-scaffold**: Scaffold Python projects with uv + ruff + mypy + pytest. Supports CLI/Web (FastAPI)/Lib types via templates. Auto-configures `.claude/settings.json` permissions.
+- **product-brainstorming**: 产品概念阶段头脑风暴。启发式对话发散功能点+场景，最终生成 HTML 报告。
 
 ## Eval workflow
 
@@ -42,3 +43,5 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - Background sub-agents cannot prompt for Bash/Write permissions and will silently fail with no output.
   If eval agents produce nothing or report permission errors, fall back to running evals directly in the main session.
 - python-scaffold auto-runs `git init` in its scaffold workflow. If global CLAUDE.md adds a "no auto git init" rule, the skill's SKILL.md must be updated.
+- Conversational skills (like product-brainstorming) need explicit "simulate the full conversation internally, do NOT wait for user input" in eval prompts. Without this, without-skill agents enter dialog mode and produce no output, while with-skill agents follow the skill's structured workflow.
+- When filling Mustache templates with Python, process `{{#TAG}}...{{/TAG}}{{^TAG}}...{{/TAG}}` conditional blocks BEFORE replacing individual `{{PLACEHOLDER}}` markers. Otherwise the shared `{{/TAG}}` closing marker gets stripped early, breaking negative-block removal.
