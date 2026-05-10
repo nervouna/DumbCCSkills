@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{PRODUCT_NAME}} · 头脑风暴报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --primary: #7c3aed;
+    --primary-light: #f5f3ff;
+    --bg: #ffffff;
+    --bg-alt: #fafafa;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --warning: #d97706;
+    --warning-bg: #fffbeb;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --info: #2563eb;
+    --info-bg: #eff6ff;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    background: var(--bg-alt);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* Section: Cover */
+  .cover {
+    background: linear-gradient(135deg, var(--primary), #a855f7, #6366f1);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 60%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  .cover .tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 400;
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .cover .meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    opacity: 0.75;
+    position: relative;
+  }
+  .cover .meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+  /* Cards */
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+  .card h3:first-of-type { margin-top: 0; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .tag-p0 { background: var(--danger-bg); color: var(--danger); }
+  .tag-p1 { background: var(--warning-bg); color: var(--warning); }
+  .tag-p2 { background: var(--bg-alt); color: var(--text-secondary); }
+  .tag-high { background: var(--success-bg); color: var(--success); }
+  .tag-medium { background: var(--warning-bg); color: var(--warning); }
+  .tag-low { background: var(--bg-alt); color: var(--text-secondary); }
+  .tag-core { background: var(--info-bg); color: var(--info); }
+  .tag-edge { background: var(--bg-alt); color: var(--text-secondary); }
+
+  /* Product Portrait */
+  .portrait-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .portrait-item {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .portrait-item .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .portrait-item p { font-size: 0.95rem; margin: 0; }
+
+  /* Persona cards */
+  .persona-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .persona-card {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    border-left: 3px solid var(--primary);
+  }
+  .persona-card .persona-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .persona-card .persona-desc { font-size: 0.85rem; color: var(--text-secondary); }
+
+  /* Scenario table */
+  .scenario-list { list-style: none; padding: 0; }
+  .scenario-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr 80px;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .scenario-item:last-child { border-bottom: 0; }
+  .scenario-item.header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* Feature list */
+  .feature-group { margin-bottom: 1.5rem; }
+  .feature-group:last-child { margin-bottom: 0; }
+  .feature-group .group-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-item:last-child { border-bottom: 0; }
+  .feature-item .feature-name { font-weight: 500; font-size: 0.9rem; flex: 1; }
+  .feature-item .feature-desc { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.15rem; }
+  .feature-tags { display: flex; gap: 0.35rem; flex-shrink: 0; }
+
+  /* Cross-insights */
+  .insight-block {
+    background: var(--primary-light);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .insight-block:last-child { margin-bottom: 0; }
+  .insight-block .insight-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .insight-block ul { padding-left: 1.25rem; font-size: 0.9rem; }
+  .insight-block li { margin-bottom: 0.35rem; }
+
+  /* Next steps */
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .next-step-card {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .next-step-card .step-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .next-step-card ul { padding-left: 1.25rem; font-size: 0.9rem; }
+  .next-step-card li { margin-bottom: 0.3rem; }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .cover { background: var(--text) !important; -webkit-print-color-adjust: exact; }
+    .card { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Block 1: Cover -->
+  <div class="cover">
+    <h1>{{PRODUCT_NAME}}</h1>
+    <div class="tagline">{{PRODUCT_TAGLINE}}</div>
+    <div class="meta">
+      <span>{{DATE}}</span>
+      <span>{{DIVERGE_COUNT}} 轮发散</span>
+      <span>{{FEATURE_COUNT}} 个功能点</span>
+      <span>{{SCENARIO_COUNT}} 个场景</span>
+    </div>
+  </div>
+
+  <!-- Block 2: Product Portrait -->
+  <div class="card">
+    <h2>产品画像</h2>
+    <div class="portrait-grid">
+      <div class="portrait-item">
+        <div class="label">问题定义</div>
+        <p>{{PROBLEM_STATEMENT}}</p>
+      </div>
+      <div class="portrait-item">
+        <div class="label">价值主张</div>
+        <p>{{VALUE_PROPOSITION}}</p>
+      </div>
+    </div>
+    {{#PERSONAS}}
+    <h3>目标用户</h3>
+    <div class="persona-list">
+      {{PERSONA_CARDS}}
+    </div>
+    {{/PERSONAS}}
+  </div>
+
+  <!-- Block 3: Scenario Map -->
+  <div class="card">
+    <h2>场景地图</h2>
+    {{#HAS_SCENARIOS}}
+    <div class="scenario-item header">
+      <span>场景</span><span>用户行为</span><span>系统行为</span><span>优先级</span>
+    </div>
+    <ul class="scenario-list">
+      {{SCENARIO_ROWS}}
+    </ul>
+    {{/HAS_SCENARIOS}}
+    {{^HAS_SCENARIOS}}
+    <div class="empty-state">暂无场景记录</div>
+    {{/HAS_SCENARIOS}}
+  </div>
+
+  <!-- Block 4: Feature Landscape -->
+  <div class="card">
+    <h2>功能全景</h2>
+    {{#HAS_FEATURES}}
+    {{FEATURE_GROUPS}}
+    {{/HAS_FEATURES}}
+    {{^HAS_FEATURES}}
+    <div class="empty-state">暂无功能点记录</div>
+    {{/HAS_FEATURES}}
+  </div>
+
+  <!-- Block 5: Cross-Insights -->
+  <div class="card">
+    <h2>交叉洞察</h2>
+    {{#HAS_INSIGHTS}}
+    <div class="insight-block">
+      <div class="insight-label">关联模式</div>
+      <ul>{{CROSS_PATTERNS}}</ul>
+    </div>
+    <div class="insight-block">
+      <div class="insight-label">协同机会</div>
+      <ul>{{SYNERGIES}}</ul>
+    </div>
+    <div class="insight-block">
+      <div class="insight-label">核心假设与待验证</div>
+      <ul>{{OPEN_QUESTIONS}}</ul>
+    </div>
+    {{/HAS_INSIGHTS}}
+    {{^HAS_INSIGHTS}}
+    <div class="empty-state">收敛阶段将自动生成交叉洞察</div>
+    {{/HAS_INSIGHTS}}
+  </div>
+
+  <!-- Block 6: Next Steps -->
+  <div class="card">
+    <h2>下一步建议</h2>
+    {{#HAS_NEXT_STEPS}}
+    <div class="next-steps-grid">
+      <div class="next-step-card">
+        <div class="step-label">建议 MVP 范围</div>
+        <ul>{{MVP_SCOPE}}</ul>
+      </div>
+      <div class="next-step-card">
+        <div class="step-label">验证实验</div>
+        <ul>{{VALIDATION_EXPERIMENTS}}</ul>
+      </div>
+      <div class="next-step-card">
+        <div class="step-label">待调研问题</div>
+        <ul>{{RESEARCH_QUESTIONS}}</ul>
+      </div>
+    </div>
+    {{/HAS_NEXT_STEPS}}
+    {{^HAS_NEXT_STEPS}}
+    <div class="empty-state">收敛阶段将自动生成下一步建议</div>
+    {{/HAS_NEXT_STEPS}}
+  </div>
+
+</div>
+</body>
+</html>
