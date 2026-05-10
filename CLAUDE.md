@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Claude Code skills development and benchmarking repo. Each skill is a project-root directory containing `SKILL.md` and `evals/evals.json`.
 
+## Quick Start
+
+```bash
+./install.sh   # 将所有技能符号链接到 ~/.claude/skills/
+```
+
+Set `CLAUDE_SKILLS_HOME` to override the install path.
+
 ## Skill conventions
 
 - Skills live in project root: `<skill-name>/SKILL.md` (not `.claude/skills/`)
@@ -21,6 +29,7 @@ Claude Code skills development and benchmarking repo. Each skill is a project-ro
 - **deep-research**: Multi-dimensional web research on any topic. Decomposes questions into dimensions, dispatches parallel Tavily research sub-agents, and synthesizes findings into structured reports.
 - **python-scaffold**: Scaffold Python projects with uv + ruff + mypy + pytest. Supports CLI/Web (FastAPI)/Lib types via templates. Auto-configures `.claude/settings.json` permissions.
 - **product-brainstorming**: 产品概念阶段头脑风暴。启发式对话发散功能点+场景，最终生成 HTML 报告。
+- **magazine-web-ppt**: 电子杂志 × 电子墨水风格的横向翻页网页 PPT（单 HTML 文件，WebGL 流体背景）。
 
 ## Eval workflow
 
