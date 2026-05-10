@@ -243,6 +243,21 @@
     font-size: 0.9rem;
   }
 
+  /* Mobile */
+  @media (max-width: 640px) {
+    .portrait-grid { grid-template-columns: 1fr; }
+    .scenario-item {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+      padding: 0.75rem 1rem;
+    }
+    .scenario-item.header { display: none; }
+    .cover h1 { font-size: 1.5rem; }
+    .cover { padding: 2rem 1.25rem; }
+    .card { padding: 1.25rem; }
+    .meta { gap: 1rem; }
+  }
+
   /* Print */
   @media print {
     body { background: white; padding: 0; }
@@ -284,6 +299,9 @@
     <div class="persona-list">
       {{PERSONA_CARDS}}
     </div>
+    {{/PERSONAS}}
+    {{^PERSONAS}}
+    <div class="empty-state">暂无用户画像</div>
     {{/PERSONAS}}
   </div>
 
