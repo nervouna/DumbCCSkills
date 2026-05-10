@@ -1,6 +1,6 @@
-# Claude Code Skills
+# Claude Code Skills for Dumb Models
 
-Claude Code 自定义技能（Skills）开发仓库。每个技能是一个独立目录，包含 `SKILL.md` 工作流定义和 `evals/evals.json` 测试用例。
+面向低能力模型的 Claude Code 辅助技能（Skills）开发仓库。通过结构化的技能工作流弥补模型推理能力不足，让"笨模型"也能完成复杂任务。每个技能是一个独立目录，包含 `SKILL.md` 工作流定义和 `evals/evals.json` 测试用例。
 
 ## 安装
 
