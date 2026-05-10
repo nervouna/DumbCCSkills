@@ -12,10 +12,13 @@
   :root {
     --primary: #7c3aed;
     --primary-light: #f5f3ff;
+    --gradient-start: #7c3aed;
+    --gradient-mid: #a855f7;
+    --gradient-end: #6366f1;
     --bg: #ffffff;
     --bg-alt: #fafafa;
     --text: #1e293b;
-    --text-secondary: #64748b;
+    --text-secondary: #475569;
     --border: #e2e8f0;
     --success: #16a34a;
     --success-bg: #f0fdf4;
@@ -41,7 +44,7 @@
 
   /* Section: Cover */
   .cover {
-    background: linear-gradient(135deg, var(--primary), #a855f7, #6366f1);
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
     color: white;
     padding: 3rem 2rem;
     border-radius: var(--radius);
@@ -88,6 +91,7 @@
     padding: 1.75rem;
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow);
+    overflow-wrap: break-word;
   }
   .card h2 {
     font-size: 1.15rem;
@@ -139,7 +143,7 @@
     margin-bottom: 0.5rem;
     font-weight: 500;
   }
-  .portrait-item p { font-size: 0.95rem; margin: 0; }
+  .portrait-item p { font-size: 0.95rem; margin: 0; overflow-wrap: break-word; }
 
   /* Persona cards */
   .persona-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
@@ -162,6 +166,7 @@
     border-bottom: 1px solid var(--border);
     align-items: start;
     font-size: 0.9rem;
+    overflow-wrap: break-word;
   }
   .scenario-item:last-child { border-bottom: 0; }
   .scenario-item.header {
@@ -263,6 +268,12 @@
     body { background: white; padding: 0; }
     .cover { background: var(--text) !important; -webkit-print-color-adjust: exact; }
     .card { break-inside: avoid; box-shadow: none; }
+    .tag-p0, .tag-p1, .tag-p2,
+    .tag-high, .tag-medium, .tag-low,
+    .tag-core, .tag-edge {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
 </style>
 </head>
