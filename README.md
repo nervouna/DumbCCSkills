@@ -16,7 +16,6 @@
 |------|------|
 | **product-brainstorming** | 产品概念阶段头脑风暴，启发式对话发散功能点和场景，生成 HTML 报告 |
 | **deep-research** | 多维度网络调研，分解问题 → 并行子代理搜索 → 合成结构化报告 |
-| **magazine-web-ppt** | 电子杂志 × 电子墨水风格的横向翻页网页 PPT（单 HTML） |
 | **search-fix** | 本地调试失败 3 次以上时，调度子代理搜索 Web 方案并合成可执行修复 |
 | **python-scaffold** | Python 项目脚手架，uv + ruff + mypy + pytest，支持 CLI / Web / Lib 模板 |
 | **frontend-preview** | 浏览器预览 + AI 截图分析 + 自动修复反馈循环，用于前端开发 |
