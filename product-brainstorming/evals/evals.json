@@ -1,0 +1,34 @@
+{
+  "skill_name": "product-brainstorming",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我头脑风暴一个面向程序员的 AI 代码审查助手。这个产品应该帮助开发者在提交代码前自动发现 bug、安全漏洞和代码风格问题。请按照完整流程进行头脑风暴：先明确问题定义和目标用户，然后发散功能点和场景，最后生成 HTML 头脑风暴报告。",
+      "expected_output": "生成状态文件 (JSON) 和 HTML 头脑风暴报告，包含问题定义、目标用户、功能点和场景",
+      "files": [],
+      "expectations": [
+        "状态文件 docs/brainstorming/*-brainstorm-state.json 存在且是有效 JSON",
+        "状态文件包含 product 字段",
+        "状态文件包含至少 2 个 dimensions",
+        "状态文件包含至少 5 个 feature_ideas",
+        "状态文件包含至少 2 个 scenarios",
+        "HTML 报告 docs/brainstorming/*-report.html 存在",
+        "HTML 报告已填充实际内容（非空状态，不显示 empty-state 提示）"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我想头脑风暴一个面向老年人的社区食堂预订和配送服务。核心需求是让老年人能方便地预订餐食，可以由家人代订或志愿者配送。请帮我进行完整的头脑风暴流程：问题定义、用户分析、功能发散、场景设计，最后生成 HTML 报告。",
+      "expected_output": "生成状态文件和 HTML 报告，针对老年人服务场景有特定的用户画像和功能设计",
+      "files": [],
+      "expectations": [
+        "状态文件 docs/brainstorming/*-brainstorm-state.json 存在且是有效 JSON",
+        "状态文件包含 product 字段（提及食堂或餐饮）",
+        "状态文件包含至少 3 个 dimensions",
+        "状态文件包含至少 5 个 feature_ideas",
+        "HTML 报告 docs/brainstorming/*-report.html 存在",
+        "HTML 报告已填充实际内容（非空状态）"
+      ]
+    }
+  ]
+}
