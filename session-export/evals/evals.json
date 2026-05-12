@@ -1,0 +1,69 @@
+{
+  "skill_name": "session-export",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把当前对话导出成 HTML 文件保存下来。",
+      "expected_output": "运行 export_session.py 脚本，生成 HTML 文件，并在浏览器中打开。",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Script is invoked via python3 with export_session.py",
+          "type": "contains",
+          "value": "export_session.py"
+        },
+        {
+          "text": "HTML file is generated at project root",
+          "type": "contains",
+          "value": "session-"
+        },
+        {
+          "text": "Browser is opened to preview the result",
+          "type": "contains",
+          "value": "open"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to archive this conversation. Can you export the chat history?",
+      "expected_output": "Detects English trigger, runs export_session.py, opens HTML in browser.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Skill is activated for English export request",
+          "type": "contains",
+          "value": "export_session.py"
+        },
+        {
+          "text": "Output is self-contained HTML file",
+          "type": "skill_instruction",
+          "value": "self-contained"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "把这个 session 的聊天记录导出，我要发给同事看。",
+      "expected_output": "运行导出脚本生成 HTML 文件，告知用户文件位置。",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Export script is executed",
+          "type": "contains",
+          "value": "export_session.py"
+        },
+        {
+          "text": "Output path is communicated to user",
+          "type": "contains",
+          "value": "session-"
+        },
+        {
+          "text": "Generated HTML includes conversation content",
+          "type": "skill_instruction",
+          "value": "turns"
+        }
+      ]
+    }
+  ]
+}
