@@ -33,6 +33,12 @@ node_modules/
 .claude/settings.local.json
 .claude/sessions/
 
+# Playwright MCP
+.playwright-mcp/
+
+# Session exports
+session-*.html
+
 # Workspace scratch directories
 *-workspace/
 lark-*
