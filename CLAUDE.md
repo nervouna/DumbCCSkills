@@ -29,7 +29,7 @@ Set `CLAUDE_SKILLS_HOME` to override the install path.
 - **deep-research**: Multi-dimensional web research on any topic. Decomposes questions into dimensions, dispatches parallel Tavily research sub-agents, and synthesizes findings into structured reports.
 - **python-scaffold**: Scaffold Python projects with uv + ruff + mypy + pytest. Supports CLI/Web (FastAPI)/Lib types via templates. Auto-configures `.claude/settings.json` permissions.
 - **product-brainstorming**: 产品概念阶段头脑风暴。启发式对话发散功能点+场景，最终生成 HTML 报告。
-- **magazine-web-ppt**: 电子杂志 × 电子墨水风格的横向翻页网页 PPT（单 HTML 文件，WebGL 流体背景）。
+- **session-export**: Export current Claude Code session to a self-contained HTML file with editorial document styling.
 
 ## Eval workflow
 
@@ -54,3 +54,6 @@ Set `CLAUDE_SKILLS_HOME` to override the install path.
 - python-scaffold auto-runs `git init` in its scaffold workflow. If global CLAUDE.md adds a "no auto git init" rule, the skill's SKILL.md must be updated.
 - Conversational skills (like product-brainstorming) need explicit "simulate the full conversation internally, do NOT wait for user input" in eval prompts. Without this, without-skill agents enter dialog mode and produce no output, while with-skill agents follow the skill's structured workflow.
 - When filling Mustache templates with Python, process `{{#TAG}}...{{/TAG}}{{^TAG}}...{{/TAG}}` conditional blocks BEFORE replacing individual `{{PLACEHOLDER}}` markers. Otherwise the shared `{{/TAG}}` closing marker gets stripped early, breaking negative-block removal.
+- Claude Code JSONL `type=user` entries may contain system-injected XML blocks that look like user content:
+  `task-notification`, `system-reminder`, `local-command-caveat`, `local-command-stdout`, `command-*`, `bash-*`.
+  These have `isMeta=False` — filter or extract them in `classify_entry`, don't rely on the meta flag.

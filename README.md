@@ -20,6 +20,7 @@
 | **python-scaffold** | Python 项目脚手架，uv + ruff + mypy + pytest，支持 CLI / Web / Lib 模板 |
 | **frontend-preview** | 浏览器预览 + AI 截图分析 + 自动修复反馈循环，用于前端开发 |
 | **safe-config** | 安全修改 Claude Code 配置（settings.json、CLAUDE.md、hooks、MCP） |
+| **session-export** | 导出 Claude Code 会话为自包含 HTML 文件，编辑式文档排版 |
 
 ## 项目结构
 
