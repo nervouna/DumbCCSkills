@@ -21,7 +21,10 @@
       "Bash(npx playwright *)",
       "Bash(npx puppeteer *)",
       "Bash(npm init *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Read(/tmp/**)",
+      "Write(/tmp/**)",
+      "Read(/Users/damao/.claude/plugins/cache/claude-plugins-official/skill-creator/**)"
     ]
   }
 }

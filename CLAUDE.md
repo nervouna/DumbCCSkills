@@ -57,3 +57,10 @@ Set `CLAUDE_SKILLS_HOME` to override the install path.
 - Claude Code JSONL `type=user` entries may contain system-injected XML blocks that look like user content:
   `task-notification`, `system-reminder`, `local-command-caveat`, `local-command-stdout`, `command-*`, `bash-*`.
   These have `isMeta=False` — filter or extract them in `classify_entry`, don't rely on the meta flag.
+- `code.claude.com/docs/llms.txt` is the official Claude Code docs index for LLMs (138 lines).
+  Skills researching config topics should curl+grep this instead of web search.
+  The actual `.md` pages are directly fetchable via `code.claude.com/docs/en/<page>.md`.
+- Aggregate script only recognizes `eval-N` directory names (`eval-0`, `eval-1`, ...).
+  Descriptive names like `hooks-pre-tool-use` won't be discovered — rename before aggregating.
+- Graders often produce inconsistent field names (`name`/`result`/`description` instead of
+  `text`/`passed`/`evidence`). Normalize grading.json before aggregation.

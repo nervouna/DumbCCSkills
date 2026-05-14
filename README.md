@@ -19,7 +19,7 @@
 | **search-fix** | 本地调试失败 3 次以上时，调度子代理搜索 Web 方案并合成可执行修复 |
 | **python-scaffold** | Python 项目脚手架，uv + ruff + mypy + pytest，支持 CLI / Web / Lib 模板 |
 | **frontend-preview** | 浏览器预览 + AI 截图分析 + 自动修复反馈循环，用于前端开发 |
-| **safe-config** | 安全修改 Claude Code 配置（settings.json、CLAUDE.md、hooks、MCP） |
+| **safe-config** | 安全修改 Claude Code 配置，研究阶段用 llms.txt 索引 + grep + curl 获取官方文档，Tavily 为后备 |
 | **session-export** | 导出 Claude Code 会话为自包含 HTML 文件，编辑式文档排版 |
 
 ## 项目结构
@@ -53,8 +53,10 @@ skill-name-workspace/   # 测试产物和 benchmark（gitignored）
 1. 在 `<skill>/evals/evals.json` 中定义测试用例
 2. 对每个 eval 并行启动 `with_skill` 和 `without_skill` 两个后台子代理
 3. 代理完成时捕获 `total_tokens` 和 `duration_ms` 写入 `timing.json`
-4. 运行评分脚本或派 grader 子代理，输出 `grading.json`
-5. 聚合 benchmark 并启动查看器：
+4. 运行评分：派 grader 子代理评估断言，保存 `grading.json`
+5. **规范化 grading.json**：grader 可能输出不统一字段名（`name`/`result` 而非 `text`/`passed`），聚合前需规范化
+6. **确保目录名为 `eval-N`**：聚合脚本只识别 `eval-0`、`eval-1` 等名称，描述性名称需重命名
+7. 聚合 benchmark 并启动查看器：
 
 ```bash
 python <skill-creator>/scripts/aggregate_benchmark.py <workspace>/iteration-N --skill-name <name>
