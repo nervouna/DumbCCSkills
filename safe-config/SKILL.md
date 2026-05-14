@@ -37,42 +37,55 @@ Follow these steps in order. Do not skip or reorder.
 
 **Goal**: Confirm the requested change is possible and identify the correct approach using official documentation.
 
-Dispatch a subagent to search for documentation. Use both Tavily MCP and Context7 MCP in parallel when possible.
+All Claude Code official docs are in English. **Steps 1-3 are mandatory — do NOT skip to Tavily.** The index covers every configuration topic. Bash (`curl`, `grep`) is always available.
 
-**IMPORTANT**: The research subagent MUST use Tavily MCP tools for all web search and page fetching:
-- `mcp__tavily__tavily_search` for searching
-- `mcp__tavily__tavily_extract` for fetching page content
-- `mcp__tavily__tavily_crawl` for crawling sites if needed
-Do NOT use built-in `WebSearch` or `WebFetch` — they are less reliable and require extra safety confirmations.
+#### Step 1: Download the documentation index
 
-The research subagent must:
-1. Search with Tavily MCP for the specific config topic with queries like:
-   - `site:docs.anthropic.com Claude Code <topic>`
-   - `site:code.claude.com Claude Code <topic>`
-2. If the topic involves a specific feature (hooks, keybindings, MCP, permissions), search for that exact feature.
-3. Use Context7 MCP with library ID `/anthropic/claude-code` for API-level documentation when applicable.
-4. Return a concise report:
-   - **Feasibility**: Is this config change possible? (yes / yes with caveats / no)
-   - **Approach**: Which file(s) to modify, which keys/sections, correct syntax
-   - **Risks**: Any breaking changes, version requirements, or incompatibilities
-   - **Sources**: Direct URLs to the official docs pages used
-
-The research subagent prompt template:
+```bash
+curl -sL -o /tmp/claude-code-docs.txt https://code.claude.com/docs/llms.txt
 ```
-Research whether this Claude Code configuration change is possible and how to do it:
-[USER'S CONFIG REQUEST]
 
-Requirements:
-- Use mcp__tavily__tavily_search to search site:docs.anthropic.com and site:code.claude.com
-- Use mcp__tavily__tavily_extract to fetch any relevant pages for full content
-- Do NOT use built-in WebSearch or WebFetch — always use Tavily MCP tools instead
-- Find the CURRENT official documentation (not community blogs unless no official source exists)
-- For each finding, include the exact URL
-- If the feature requires a specific Claude Code version, note it
-- Report confidence level: confirmed in official docs / based on community source / not found
+This is the official Claude Code doc index designed for LLM consumption (138 lines, `- [Title](URL): Description` format). Every config topic is listed here.
 
-Return a concise report with: Feasibility, Approach, Risks, Sources.
+#### Step 2: Find relevant pages with grep
+
+Map the user's config request to grep keywords:
+
+| Request topic | grep keywords |
+|---|---|
+| settings, config, model | `setting`, `model-config` |
+| hooks, PreToolUse, PostToolUse | `hook` |
+| keybindings, keyboard shortcuts | `keybinding`, `keyboard` |
+| MCP server, MCP tool | `mcp` |
+| CLAUDE.md, project memory | `claude-directory`, `memory` |
+| permissions, auto mode, allowlist | `permission`, `auto-mode` |
+
+```bash
+grep -i "<keyword>" /tmp/claude-code-docs.txt
 ```
+
+From matching lines, pick the 2-4 most relevant `.md` URLs.
+
+#### Step 3: Fetch the doc pages
+
+```bash
+curl -sL "<URL>" | head -500
+```
+
+Pipe through `head` to avoid loading huge pages into context. Read the extracted content and produce a concise research report:
+
+- **Feasibility**: Is this config change possible? (yes / yes with caveats / no)
+- **Approach**: Which file(s) to modify, which keys/sections, correct syntax
+- **Risks**: Any breaking changes, version requirements, or incompatibilities
+- **Sources**: Direct URLs to the docs pages used
+
+#### Fallback: Tavily MCP search
+
+Use Tavily ONLY when the fetched pages are incomplete — the page exists but lacks the specific detail needed. Do NOT use it just because curl failed or grep returned no matches (the index covers everything; if grep finds nothing, try broader keywords).
+
+- `mcp__tavily__tavily_search` with queries like `site:code.claude.com <topic>`
+- `mcp__tavily__tavily_extract` to fetch full page content
+- Do NOT use built-in `WebSearch` or `WebFetch`
 
 ### Phase 2: Plan
 
@@ -92,6 +105,9 @@ After receiving the research report, dispatch a planning subagent that:
 
 ## Files to modify
 - `<absolute-path>`: <what changes>
+
+## Implementation method
+<How the change will be applied. For settings.json: "Delegate to update-config skill". For other files: "Direct Edit".>
 
 ## Detailed changes
 ### File: `<path>`
@@ -154,15 +170,19 @@ If a feature requires a newer Claude Code version than what's installed:
 - Suggest upgrading if the user wants the feature
 - Offer alternatives compatible with the current version if available
 
-## Quick reference: official doc URLs
+## Quick reference
 
-| Topic | Primary source |
-|-------|---------------|
-| Settings reference | `https://docs.anthropic.com/en/docs/claude-code/settings` |
-| Hooks | `https://code.claude.com/docs/en/hooks` |
-| Setup & config files | `https://docs.anthropic.com/en/docs/claude-code/setup` |
-| IDE integrations | `https://docs.anthropic.com/en/docs/claude-code/ide-integrations` |
-| Plugins & marketplaces | `https://docs.anthropic.com/en/docs/claude-code/plugins` |
-| Authentication | `https://docs.anthropic.com/en/docs/claude-code/iam` |
+| Resource | URL |
+|----------|-----|
+| Documentation index (all pages) | `https://code.claude.com/docs/llms.txt` |
+| Settings reference | `https://code.claude.com/docs/en/settings.md` |
+| Hooks reference | `https://code.claude.com/docs/en/hooks.md` |
+| Hooks guide | `https://code.claude.com/docs/en/hooks-guide.md` |
+| Keybindings | `https://code.claude.com/docs/en/keybindings.md` |
+| MCP configuration | `https://code.claude.com/docs/en/mcp.md` |
+| .claude directory overview | `https://code.claude.com/docs/en/claude-directory.md` |
+| Permissions | `https://code.claude.com/docs/en/permissions.md` |
+| Model configuration | `https://code.claude.com/docs/en/model-config.md` |
+| Debug configuration | `https://code.claude.com/docs/en/debug-your-config.md` |
 
-Always search for the most specific page first rather than starting from these general entry points.
+Always download and grep the documentation index first — it's the authoritative and complete listing.
